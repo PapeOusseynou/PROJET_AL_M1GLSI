@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!-- partie 1 : Definitions -->
+<definitions 	name="ContactsService" 
+		targetNamespace="urn:ContactsService" 
+		xmlns:typens="urn:ContactsService" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+		xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns="http://schemas.xmlsoap.org/wsdl/">
+		
+	<!-- partie 2 : Types-->
+<types>
+    	<xsd:schema 	xmlns="http://www.w3.org/2001/XMLSchema" 
+			targetNamespace="urn:ContactsService">
+ 	</xsd:schema>
+ </types> 
+	
+	
+	<!-- partie 3 : Message -->
+	<message name="addRequest">
+		<part name="id" type="xsd:integer"/>
+		<part name="name" type="xsd:string"/>
+		<part name="username" type="xsd:string"/>
+		<part name="email" type="xsd:string"/>
+		<part name="password" type="xsd:string"/>
+		<part name="gender" type="xsd:string"/>
+		<part name="image" type="xsd:string"/>
+		<part name="code" type="xsd:string"/>
+		<part name="status" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
+	</message>
+	<message name="addResponse">
+		<part name="return" type="xsd:boolean"/>
+	</message>
+	
+	<message name="editRequest">
+		<part name="id" type="xsd:integer"/>
+		<part name="name" type="xsd:string"/>
+		<part name="username" type="xsd:string"/>
+		<part name="email" type="xsd:string"/>
+		<part name="password" type="xsd:string"/>
+		<part name="gender" type="xsd:string"/>
+		<part name="image" type="xsd:string"/>
+		<part name="code" type="xsd:string"/>
+		<part name="status" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
+	</message>
+	<message name="editResponse">
+		<part name="return" type="xsd:boolean"/>
+	</message>
+	
+	<!-- partie 4 : Port Type -->
+	<portType name="ContactsServicePort">
+		<!-- partie 5 : Operation -->
+		<operation name="add">
+			<input message="typens:addRequest"/>
+			<output message="typens:addResponse"/>
+		</operation>
+		
+		<operation name="edit">
+			<input message="typens:editRequest"/>
+			<output message="typens:editResponse"/>
+		</operation>
+		
+	</portType>
+
+	<!-- partie 6 : Binding -->
+	<binding name="ContactsServiceBinding" type="typens:ContactsServicePort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="add">
+			<soap:operation soapAction="ContactsServiceAction"/>
+			<input name="addRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:ContactsService" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="addResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:ContactsService" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="edit">
+			<soap:operation soapAction="ContactsServiceAction"/>
+			<input name="editRequest">
+				<soap:body 	use="encoded" 	
+						namespace="urn:ContactsService" 	
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output name="editResponse">
+				<soap:body 	use="encoded" 	
+						namespace="urn:ContactsService" 
+						encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+
+	<!-- partie 7 : Service -->
+	<service name="ContactsServiceService">
+		<documentation>Doc...</documentation>
+		<!-- partie 8 : Port -->
+		<port name="ContactsServicePort" binding="typens:ContactsServiceBinding">
+			<soap:address location="http://localhost/ws/contacts.php?SOAP"/> <!-- modifier ce chemin vers server.php -->
+		</port>
+	</service>
+</definitions>

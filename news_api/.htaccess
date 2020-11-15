@@ -1,0 +1,11 @@
+# Turn rewrite engine on
+Options +FollowSymlinks
+RewriteEngine on
+
+# map neat URL to internal URL
+RewriteRule ^article/getAllArticles/([0-9]+)/$   api/articles/getAllArticles.php?begin=$1 [nc,qsa]
+RewriteRule ^article/getAllArticles/([0-9]+)$   api/articles/getAllArticles.php?begin=$1 [nc,qsa]
+RewriteRule ^article/categorie/([0-9]+)/$   api/articles/getArticlesByCategory.php?idCategory=$1 [nc,qsa]
+RewriteRule ^article/categorie/([0-9]+)$   api/articles/getArticlesByCategory.php?idCategory=$1 [nc,qsa]
+RewriteRule ^article/([0-9]+)/$   api/articles/getArticle.php?id=$1 [nc,qsa]
+RewriteRule ^article/([0-9]+)$   api/articles/getArticle.php?id=$1 [nc,qsa]
